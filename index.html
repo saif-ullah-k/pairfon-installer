@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pairfon · iMessage Agent — Mac Install Guide</title>
+<style>
+  :root{
+    --im:#0d6efd; --im-d:#0a58ca; --ink:#0b1220; --muted:#5b6677;
+    --line:#e6e9f0; --bg:#f6f8fc; --card:#fff; --ok:#1ea672; --warn:#d98b00;
+    --danger:#d6453d; --code-bg:#0d1530; --code-ink:#e7ecff; --accent:#eef4ff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px 90px}
+  header{background:linear-gradient(135deg,var(--im),#3d8bff);color:#fff;padding:46px 22px 40px;text-align:center}
+  header .logo{font-weight:800;letter-spacing:.5px;font-size:14px;opacity:.9;text-transform:uppercase}
+  header h1{margin:10px 0 6px;font-size:30px;font-weight:800}
+  header p{margin:0;opacity:.92;font-size:15px}
+  .badge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);
+    padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;margin-top:14px}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:26px 0;
+    box-shadow:0 1px 3px rgba(13,30,70,.05)}
+  .toc h2{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+  .toc ol{margin:0;padding-left:20px}
+  .toc a{color:var(--im-d);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin:22px 0;
+    box-shadow:0 1px 3px rgba(13,30,70,.05)}
+  h2.sec{display:flex;align-items:center;gap:12px;margin:0 0 4px;font-size:21px}
+  h2.sec .n{flex:0 0 32px;height:32px;border-radius:9px;background:var(--accent);color:var(--im-d);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}
+  .sub{color:var(--muted);margin:2px 0 18px;font-size:14.5px}
+  h3{font-size:16px;margin:22px 0 8px}
+  p{margin:10px 0}
+  code{background:#eef1f7;padding:2px 6px;border-radius:5px;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+    font-size:13px;color:#21305a}
+  pre{background:var(--code-bg);color:var(--code-ink);padding:16px 18px;border-radius:11px;overflow-x:auto;
+    font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.55;margin:12px 0}
+  pre .c{color:#8aa0d8}
+  pre b{color:#7ee0a8;font-weight:600}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;vertical-align:middle}
+  .pill.req{background:#fde9e7;color:var(--danger)}
+  .pill.auto{background:#e3f6ec;color:var(--ok)}
+  .note,.warn,.ok,.danger{border-radius:11px;padding:14px 16px;margin:16px 0;font-size:14.5px;border:1px solid}
+  .note{background:var(--accent);border-color:#cfe0ff}
+  .warn{background:#fff6e6;border-color:#ffe2a8}
+  .ok{background:#eafaf1;border-color:#bdebd0}
+  .danger{background:#fdecea;border-color:#f6c9c4}
+  .note b,.warn b,.ok b,.danger b{font-weight:700}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#f3f6fc;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+  td code{white-space:nowrap}
+  .kbd{display:inline-block;background:#fff;border:1px solid #c7cede;border-bottom-width:2px;border-radius:6px;
+    padding:1px 7px;font-size:12.5px;font-family:inherit;font-weight:600;color:#2a3550}
+  .step{display:flex;gap:14px;margin:16px 0}
+  .step .dot{flex:0 0 26px;height:26px;border-radius:50%;background:var(--im);color:#fff;font-weight:700;
+    font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px}
+  .step .body{flex:1}
+  .step .body h4{margin:0 0 4px;font-size:15.5px}
+  hr{border:0;border-top:1px solid var(--line);margin:22px 0}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:30px}
+  .copy{font-size:11px;color:var(--muted);float:right;margin-top:-4px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Pairfon</div>
+  <h1>iMessage Agent — Mac Install Guide</h1>
+  <p>Connect one Mac to Pairfon. Install once → done. Auto-starts on reboot, never needs a token again.</p>
+  <div class="badge">macOS · Node 18+ · ~5 minutes</div>
+</header>
+
+<div class="wrap">
+
+  <div class="toc">
+    <h2>What you'll do</h2>
+    <ol>
+      <li><a href="#how">How it works (30-second overview)</a></li>
+      <li><a href="#pre">Prerequisites</a></li>
+      <li><a href="#perms">Permissions required (the important part)</a></li>
+      <li><a href="#install">Install the agent</a></li>
+      <li><a href="#fda">Grant Full Disk Access to <code>node</code></a></li>
+      <li><a href="#verify">Verify it's working</a></li>
+      <li><a href="#manage">Manage / restart / uninstall</a></li>
+      <li><a href="#trouble">Troubleshooting</a></li>
+    </ol>
+  </div>
+
+  <!-- 1 -->
+  <section id="how">
+    <h2 class="sec"><span class="n">1</span> How it works</h2>
+    <p class="sub">One Mac = one Apple ID = one iMessage line connected to Pairfon.</p>
+    <p>The agent is a small Node program that runs on the Mac and <b>dials out</b> to Pairfon Core — so the Mac needs <b>no public IP, no port forwarding, no ngrok of its own</b>. It:</p>
+    <ul>
+      <li><b>Enrolls once</b> with a pairing token → stores its own agent key.</li>
+      <li><b>Reads</b> new incoming messages from the Messages database (<code>chat.db</code>) and pushes them to Pairfon.</li>
+      <li><b>Sends</b> outgoing messages by driving Messages.app via AppleScript.</li>
+      <li><b>Reports</b> delivered / read receipts and a heartbeat.</li>
+    </ul>
+    <div class="note">Because it reads your Messages database and controls Messages.app, macOS requires a few <b>one-time privacy permissions</b>. That's what Section&nbsp;3 covers.</div>
+  </section>
+
+  <!-- 2 -->
+  <section id="pre">
+    <h2 class="sec"><span class="n">2</span> Prerequisites</h2>
+    <p class="sub">On a bare Mac you don't install these by hand — the bootstrap does it for you.</p>
+
+    <div class="ok"><b>You don't install these by hand.</b> Both the <b>installer app</b> and <code>setup-mac.sh</code> install <b>Xcode Command Line Tools + Homebrew + Node 18+</b> automatically. You only need the two items marked <span class="pill req">you provide</span> below.</div>
+
+    <table>
+      <tr><th>Requirement</th><th>Who handles it</th></tr>
+      <tr><td><b>macOS</b> (Apple Silicon or Intel)</td><td>Already there.</td></tr>
+      <tr><td><b>Xcode Command Line Tools</b></td><td><span class="pill auto">installer</span> runs <code>xcode-select --install</code> and waits for it.</td></tr>
+      <tr><td><b>Homebrew</b></td><td><span class="pill auto">installer</span> installs it (only if Node is missing).</td></tr>
+      <tr><td><b>Node.js 18+</b></td><td><span class="pill auto">installer</span> runs <code>brew install node</code> (skipped if already present).</td></tr>
+      <tr><td><b>Apple ID signed into Messages</b></td><td><span class="pill req">you provide</span> — open <b>Messages.app</b> → sign in with the dedicated Apple ID. <span class="pill auto">can be done later</span></td></tr>
+      <tr><td><b>Pairing token</b> from Pairfon</td><td><span class="pill req">you provide</span> — Pairfon Ops → <b>iMessage Fleet</b> → <b>New Mac</b> → assign a company → copy the <code>imt_…</code> token.</td></tr>
+    </table>
+    <div class="note">The Apple ID can be added <b>after</b> install. The agent enrolls and waits; the moment Messages is signed in and Full Disk Access is granted, it starts working automatically — no re-install.</div>
+  </section>
+
+  <!-- 3 -->
+  <section id="perms">
+    <h2 class="sec"><span class="n">3</span> Permissions required</h2>
+    <p class="sub">Three macOS privacy permissions. Read this — it explains which prompt automatically and which you must grant by hand.</p>
+
+    <table>
+      <tr><th>Permission</th><th>Why the agent needs it</th><th>How it's granted</th></tr>
+      <tr>
+        <td><b>Full Disk Access</b><br><span class="pill req">Manual only</span></td>
+        <td>To <b>read</b> the Messages database <code>~/Library/Messages/chat.db</code> (incoming messages + receipts).</td>
+        <td><b>Never prompts.</b> You must add <code>node</code> by hand in System Settings — see Section&nbsp;5.</td>
+      </tr>
+      <tr>
+        <td><b>Automation</b><br>(Apple Events)<br><span class="pill auto">Prompts</span></td>
+        <td>To <b>send</b> messages by telling Messages.app / System Events what to type.</td>
+        <td>A dialog appears the <b>first time the agent sends</b> — click <b>OK / Allow</b>.</td>
+      </tr>
+      <tr>
+        <td><b>Accessibility</b><br><span class="pill req">Manual</span></td>
+        <td>To let AppleScript control the keyboard for sending (the <code>keystroke</code> step).</td>
+        <td>System Settings → Privacy &amp; Security → <b>Accessibility</b> → add <code>node</code> (and Terminal).</td>
+      </tr>
+    </table>
+
+    <div class="warn">
+      <b>Why doesn't Full Disk Access just pop a prompt?</b><br>
+      Because <code>chat.db</code> is your entire private message history, Apple deliberately put it behind <b>Full Disk Access</b> — the one permission category that has <b>no prompt and no API</b>. No app (not ours, not even Apple's own) can request it; a human must toggle it in System Settings. This is by design, and it's a one-time step per Mac. Automation &amp; Accessibility <i>do</i> prompt; Full Disk Access does not.
+    </div>
+
+    <div class="danger">
+      <b>Critical:</b> grant Full Disk Access &amp; Accessibility to your <b><code>node</code> binary</b> — <u>not just Terminal</u>. The agent runs under <code>launchd</code>, which launches <code>node</code> directly, so granting Terminal alone is not enough.
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="install">
+    <h2 class="sec"><span class="n">4</span> Install</h2>
+    <p class="sub">Two ways. <b>Method A (the app)</b> is recommended — no Terminal at all.</p>
+
+    <h3 style="font-size:17px">Method A — Double-click installer app <span class="pill auto">recommended</span></h3>
+    <p>A real macOS app that runs every step for you with native dialogs (installs Node if needed, downloads the agent, enrolls, sets up auto-start, opens the permission pane).</p>
+
+    <div class="step"><div class="dot">1</div><div class="body">
+      <h4>Download it</h4>
+      <p><a href="https://github.com/saif-ullah-k/pairfon-installer/releases/download/v1/PairfonInstaller.zip"><b>Download Pairfon Installer.zip</b></a> &nbsp;→&nbsp; double-click the zip to unpack <b>Pairfon Installer.app</b>.</p>
+    </div></div>
+    <div class="step"><div class="dot">2</div><div class="body">
+      <h4>Open it (first time only)</h4>
+      <p>Because the app isn't code-signed yet, a plain double-click says <i>"unidentified developer."</i> Instead: <b>right-click the app → Open → Open</b>. After that it opens normally.</p>
+    </div></div>
+    <div class="step"><div class="dot">3</div><div class="body">
+      <h4>Fill in the popups</h4>
+      <p>It asks for <b>Core URL</b>, <b>pairing token</b> (<code>imt_…</code>), and <b>Apple ID handle</b>, then installs &amp; enrolls automatically. If Node isn't installed it adds it (one admin-password prompt); if Node is already there it skips that.</p>
+    </div></div>
+    <div class="step"><div class="dot">4</div><div class="body">
+      <h4>Grant Full Disk Access when it asks</h4>
+      <p>At the end the app <b>opens the Full Disk Access pane and waits</b> — add <code>node</code> (see Section 5), and the app auto-detects it and finishes. Done.</p>
+    </div></div>
+    <div class="note">The agent is <b>bundled inside the app</b> — it installs into <code>~/Library/Application&nbsp;Support/Pairfon/agent</code> and sets up the auto-start service. <b>No repo is cloned</b>, so the source stays private. Logs: <code>~/Library/Application&nbsp;Support/Pairfon/install.log</code>.</div>
+
+    <hr>
+
+    <h3 style="font-size:17px">Method B — Terminal (advanced, team only)</h3>
+    <p>Prefer the command line, or scripting many Macs? One command installs the tooling <i>and</i> the agent. <b>Requires access to the private repo</b> (internal/team use) — customers should use Method&nbsp;A.</p>
+
+    <div class="danger"><b>Don't clone the repo inside the repo.</b> Clone it to your <b>home folder</b> (<code>~</code>). A second copy inside <code>imessage-api/imessage</code> creates a nested path that breaks the auto-start service.</div>
+
+    <pre><span class="c"># from your HOME folder — installs Xcode CLT + Homebrew + Node, then the agent</span>
+git clone https://github.com/saif-ullah-k/core-3-in-1.git ~/core-3-in-1
+cd ~/core-3-in-1/imessage-api/imessage
+bash setup-mac.sh</pre>
+
+    <div class="note">Already have Node 18+ and Xcode CLT? Skip the bootstrap and run just <code>bash install-agent.sh</code> — <code>setup-mac.sh</code> simply calls it after preparing the tooling.</div>
+
+    <p>It asks three things, then sets everything up:</p>
+    <table>
+      <tr><th>Prompt</th><th>What to enter</th></tr>
+      <tr><td><b>Core URL</b></td><td>Your Pairfon Core address, e.g. <code>https://api.pairfon.com</code></td></tr>
+      <tr><td><b>Pairing token</b></td><td>The <code>imt_…</code> token from Pairfon Ops</td></tr>
+      <tr><td><b>Apple ID handle</b></td><td>The email/phone shown in Messages, e.g. <code>line@icloud.com</code></td></tr>
+    </table>
+
+    <p>Both methods then:</p>
+    <ul>
+      <li><b>enroll</b> with Core (save config — <b>no token/env ever needed again</b>),</li>
+      <li>install a <b>launchd service</b> that <b>auto-starts on login/reboot</b>, <b>auto-restarts if it stops</b>, and keeps the Mac awake.</li>
+    </ul>
+  </section>
+
+  <!-- 5 -->
+  <section id="fda">
+    <h2 class="sec"><span class="n">5</span> Grant Full Disk Access to <code>node</code></h2>
+    <p class="sub">The one manual permission. Do this once. <b>The installer app opens this pane for you</b> and auto-detects when you finish — these are the click-by-click steps.</p>
+
+    <div class="step"><div class="dot">1</div><div class="body">
+      <h4>Open the right settings pane</h4>
+      <p>Apple menu → <b>System Settings</b> → <b>Privacy &amp; Security</b> → <b>Full Disk Access</b>.</p>
+    </div></div>
+    <div class="step"><div class="dot">2</div><div class="body">
+      <h4>Click the <b>+</b> button</h4>
+      <p>A file picker opens. <code>node</code> lives in a hidden folder, so you'll type the path — don't try to browse to it.</p>
+    </div></div>
+    <div class="step"><div class="dot">3</div><div class="body">
+      <h4>Jump to the binary</h4>
+      <p>Press <span class="kbd">⌘</span> + <span class="kbd">⇧ Shift</span> + <span class="kbd">G</span>, then type the <b>full path including <code>node</code></b> and press <span class="kbd">Enter</span>:</p>
+      <pre>/opt/homebrew/bin/node</pre>
+      <p class="sub" style="margin:6px 0 0">Apple Silicon path shown above. On Intel Macs it's <code>/usr/local/bin/node</code>. Not sure? Run <code>node -e "console.log(process.execPath)"</code> on the Mac and use that path.</p>
+    </div></div>
+    <div class="step"><div class="dot">4</div><div class="body">
+      <h4>Select &amp; toggle ON</h4>
+      <p>The picker selects <code>node</code> (it may resolve to the real <code>…/Cellar/node/&lt;version&gt;/bin/node</code> — that's correct). Click <b>Open</b>, then make sure the <b>toggle next to node is ON</b>.</p>
+    </div></div>
+    <div class="step"><div class="dot">5</div><div class="body">
+      <h4>Restart the agent so it picks up the permission</h4>
+      <p>macOS only applies a new permission when the process restarts:</p>
+      <pre>launchctl unload ~/Library/LaunchAgents/com.pairfon.imessage-agent.plist
+launchctl load   ~/Library/LaunchAgents/com.pairfon.imessage-agent.plist</pre>
+    </div></div>
+
+    <div class="note">While you're in <b>Privacy &amp; Security</b>, also add <code>node</code> under <b>Accessibility</b> (same <b>+</b> → same path) so sending works. <b>Tip:</b> with the installer app you don't run the <code>launchctl</code> commands in step 5 — the app restarts the agent for you once it detects the toggle.</div>
+  </section>
+
+  <!-- 6 -->
+  <section id="verify">
+    <h2 class="sec"><span class="n">6</span> Verify it's working</h2>
+    <p class="sub">Check the log on the Mac (the agent's location depends on how you installed).</p>
+    <pre><span class="c"># Method A — installer app:</span>
+tail -20 ~/Library/Application\ Support/Pairfon/agent/agent.log
+<span class="c"># Method B — Terminal:</span>
+tail -20 ~/core-3-in-1/imessage-api/imessage/agent.log</pre>
+    <p>You want to see <b>both</b> lines:</p>
+    <pre><b>Pairfon iMessage agent running → https://…  (poll 3000ms, machine …)</b>
+<b>Messages DB opened — inbound/status tracking active.</b></pre>
+    <div class="ok">If you see <b>“Messages DB opened”</b>, Full Disk Access is correct and the Mac is fully live. It will now appear <b>online</b> in Pairfon, receive incoming messages, and send outgoing ones.</div>
+    <div class="warn">If you still see <b>“Messages DB not readable yet”</b>: the Full Disk Access toggle for <code>node</code> isn't ON, or you didn't restart the agent (Section 5, step 5). Fix and re-check.</div>
+  </section>
+
+  <!-- 7 -->
+  <section id="manage">
+    <h2 class="sec"><span class="n">7</span> Manage the agent</h2>
+    <table>
+      <tr><th>Action</th><th>Command</th></tr>
+      <tr><td>View live logs</td><td><code>tail -f ~/core-3-in-1/imessage-api/imessage/agent.log</code></td></tr>
+      <tr><td>Stop</td><td><code>launchctl unload ~/Library/LaunchAgents/com.pairfon.imessage-agent.plist</code></td></tr>
+      <tr><td>Start</td><td><code>launchctl load ~/Library/LaunchAgents/com.pairfon.imessage-agent.plist</code></td></tr>
+      <tr><td>Is it running?</td><td><code>launchctl list | grep pairfon</code> &nbsp;(a number + the label = running)</td></tr>
+      <tr><td>Uninstall</td><td><code>bash uninstall-agent.sh</code> &nbsp;then <code>rm -rf ~/core-3-in-1</code></td></tr>
+    </table>
+    <div class="note"><b>Unattended Macs:</b> enable <b>automatic login</b> (System Settings → Users &amp; Groups) so the agent comes back up after a reboot without anyone signing in. Revoke the Mac from <b>Pairfon Ops</b> to cut it off instantly.</div>
+  </section>
+
+  <!-- 8 -->
+  <section id="trouble">
+    <h2 class="sec"><span class="n">8</span> Troubleshooting</h2>
+
+    <h3>“unable to open database file”</h3>
+    <p>Full Disk Access isn't granted to <code>node</code> (or Messages isn't signed in yet). Do Section 5, confirm the toggle is ON, restart the agent.</p>
+
+    <h3>Service shows exit status <code>1</code> / crash loop (<code>launchctl list | grep pairfon</code> shows <code>-&nbsp;1</code>)</h3>
+    <p>Usually a <b>nested clone</b>: the repo was cloned inside itself, so the launchd plist points at a doubled path like <code>…/imessage/core-3-in-1/imessage-api/imessage/…</code>. Fix:</p>
+    <pre><span class="c"># from the correct top-level checkout</span>
+cd ~/core-3-in-1/imessage-api/imessage
+launchctl unload ~/Library/LaunchAgents/com.pairfon.imessage-agent.plist 2>/dev/null
+rm -f ~/Library/LaunchAgents/com.pairfon.imessage-agent.plist
+rm -rf ./core-3-in-1            <span class="c"># remove the nested copy</span>
+bash install-agent.sh          <span class="c"># re-run from the right place</span></pre>
+
+    <h3>“No agent key stored and no PAIRING_TOKEN set”</h3>
+    <p>The agent never finished enrolling (often the nested-clone issue above). Re-run <code>install-agent.sh</code> from the correct folder with a fresh pairing token.</p>
+
+    <h3>Messages send but nothing is received (or vice-versa)</h3>
+    <p>Receiving needs <b>Full Disk Access</b>; sending needs <b>Automation + Accessibility</b>. If only one direction works, the missing permission is the one for the broken direction.</p>
+
+    <h3>Agent shows offline in Pairfon after a reboot</h3>
+    <p>The Mac rebooted to the login screen and nobody signed in. Enable <b>automatic login</b> so launchd can start the agent.</p>
+  </section>
+
+  <footer>
+    Pairfon · iMessage service &nbsp;•&nbsp; Install once, runs forever &nbsp;•&nbsp; Revoke anytime from Ops
+  </footer>
+
+</div>
+</body>
+</html>
